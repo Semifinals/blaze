@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Errors\AccumulativeValidatorBuilder.fs" />
+    <Compile Include="Errors\StringErrors.fs" />
+    <Compile Include="Primitives\DestinationUrl.fs" />
+    <Compile Include="Primitives\ShortUrl.fs" />
+    <Compile Include="Types\Link.fs" />
+    <Compile Include="DTOs\LinkDto.fs" />
+    <Compile Include="Mappers\LinkMapper.fs" />
+    <Compile Include="Triggers\PostLinkTrigger.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="4.4.2" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="local.settings.json" Condition="Exists('local.settings.json')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="8.0.100" />
+  </ItemGroup>
+</Project>
