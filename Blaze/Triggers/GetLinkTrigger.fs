@@ -10,5 +10,5 @@ module GetLinkTrigger =
     [<FunctionName("GetLinkTrigger")>]
     let Run
         ([<HttpTrigger(AuthorizationLevel.Function, "get", Route = "{shortUrl}")>] req: HttpRequest)
-        ([<CosmosDB("%CosmosConnectionString%", "links", DatabaseName = "links-db", Id = "{shortUrl}")>] link: Link) =
+        ([<CosmosDB("%CosmosConnectionString%", "links", DatabaseName = "links-db", Id = "{shortUrl}", PartitionKey = "{shortUrl}")>] link: Link) =
             RedirectResult(link.DestinationUrl) :> IActionResult

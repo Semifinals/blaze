@@ -15,6 +15,7 @@ module PostLinkTrigger =
             match LinkMapper.ToDomain(dto) with
             | Ok link ->
                 db <- link
-                CreatedResult($"/{link.ShortUrl}", link) :> IActionResult
+                CreatedResult($"/{link.ShortUrl}", LinkMapper.FromDomain(link)) :> IActionResult
             | Error errors ->
                 BadRequestObjectResult(errors) :> IActionResult
+                

@@ -9,6 +9,7 @@
     <Compile Include="Primitives\DestinationUrl.fs" />
     <Compile Include="Primitives\ShortUrl.fs" />
     <Compile Include="Types\Link.fs" />
+    <Compile Include="DTOs\Pagination.fs" />
     <Compile Include="DTOs\LinkDto.fs" />
     <Compile Include="Mappers\LinkMapper.fs" />
     <Compile Include="Triggers\GetAllLinksTrigger.fs" />
@@ -17,6 +18,7 @@
     <Compile Include="Triggers\PostLinkTrigger.fs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.1" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="4.4.2" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.2.0" />
   </ItemGroup>
