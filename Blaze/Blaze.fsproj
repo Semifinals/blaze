@@ -11,6 +11,9 @@
     <Compile Include="Types\Link.fs" />
     <Compile Include="DTOs\LinkDto.fs" />
     <Compile Include="Mappers\LinkMapper.fs" />
+    <Compile Include="Triggers\GetAllLinksTrigger.fs" />
+    <Compile Include="Triggers\DeleteLinkTrigger.fs" />
+    <Compile Include="Triggers\GetLinkTrigger.fs" />
     <Compile Include="Triggers\PostLinkTrigger.fs" />
   </ItemGroup>
   <ItemGroup>
