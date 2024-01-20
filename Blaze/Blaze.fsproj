@@ -12,6 +12,8 @@
     <Compile Include="DTOs\Pagination.fs" />
     <Compile Include="DTOs\LinkDto.fs" />
     <Compile Include="Mappers\LinkMapper.fs" />
+    <Compile Include="Triggers\SeoTrigger.fs" />
+    <None Include="triggers\SeoTrigger.http" />
     <Compile Include="Triggers\GetAllLinksTrigger.fs" />
     <None Include="triggers\GetAllLinksTrigger.http" />
     <Compile Include="Triggers\DeleteLinkTrigger.fs" />
