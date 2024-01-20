@@ -1,9 +1,9 @@
 ﻿namespace Blaze.Mappers
 
 open Blaze.DTOs
-open Blaze.Types
-open Blaze.Primitives
 open Blaze.Errors.AccumulativeValidatorBuilder
+open Blaze.Primitives
+open Blaze.Types
 
 module LinkMapper =
     let ToDomain(dto: LinkDto): Result<Link, string list> =

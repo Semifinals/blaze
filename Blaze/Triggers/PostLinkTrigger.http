@@ -1,0 +1,7 @@
+POST http://localhost:7071
+Content-Type: application/json
+
+{
+  "shortUrl": "test",
+  "destinationUrl": "https://example.com"
+}

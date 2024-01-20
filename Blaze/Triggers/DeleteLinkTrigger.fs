@@ -9,13 +9,16 @@ open Microsoft.Azure.Cosmos
 module DeleteLinkTrigger =
     [<FunctionName("DeleteLinkTrigger")>]
     let Run
-        ([<HttpTrigger(AuthorizationLevel.Function, "get", Route = "{shortUrl}")>] req: HttpRequest)
-        ([<CosmosDB("%CosmosConnectionString%", "links", DatabaseName = "links-db")>] container: Container)
+        ([<HttpTrigger(AuthorizationLevel.Function, "delete", Route = "{shortUrl}")>] req: HttpRequest)
+        ([<CosmosDB(Connection = "CosmosConnectionString")>] cosmosClient: CosmosClient)
         (shortUrl: string) =
-            container.DeleteItemAsync(shortUrl, PartitionKey(shortUrl))
-                |> Async.AwaitTask
-                |> Async.RunSynchronously
-                |> ignore
+            cosmosClient
+                .GetContainer("links-db", "links")
+                .DeleteItemAsync(shortUrl, PartitionKey(shortUrl))
+                    |> Async.AwaitTask
+                    |> Async.RunSynchronously
+                    |> ignore
                 
             NoContentResult() :> IActionResult
+            // return 404 if already deleted?
             

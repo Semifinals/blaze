@@ -13,9 +13,13 @@
     <Compile Include="DTOs\LinkDto.fs" />
     <Compile Include="Mappers\LinkMapper.fs" />
     <Compile Include="Triggers\GetAllLinksTrigger.fs" />
+    <None Include="triggers\GetAllLinksTrigger.http" />
     <Compile Include="Triggers\DeleteLinkTrigger.fs" />
+    <None Include="triggers\DeleteLinkTrigger.http" />
     <Compile Include="Triggers\GetLinkTrigger.fs" />
+    <None Include="triggers\GetLinkTrigger.http" />
     <Compile Include="Triggers\PostLinkTrigger.fs" />
+    <None Include="triggers\PostLinkTrigger.http" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.1" />
