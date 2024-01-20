@@ -50,7 +50,7 @@ jobs:
         run: |
           dotnet publish --configuration Release --output ./output --self-contained
           cd ./output
-          zip -r ./deploy.zip ./
+          zip -r ../deploy.zip .
           cd ..
 
       - name: Configure CORS
