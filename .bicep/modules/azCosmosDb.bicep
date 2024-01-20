@@ -24,5 +24,33 @@ resource azCosmosDb 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
   }
 }
 
+// Create links-db database
+resource azCosmosDbDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-11-15' = {
+  parent: azCosmosDb
+  name: 'database'
+  location: location
+  properties: {
+    resource: {
+      id: 'links-db'
+    }
+  }
+}
+
+// Create links container
+resource azCosmosDbContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-11-15' = {
+  parent: azCosmosDbDatabase
+  name: 'container'
+  location: location
+  properties: {
+    resource: {
+      id: 'links'
+      partitionKey: {
+        paths: ['/id']
+        kind: 'Hash'
+      }
+    }
+  }
+}
+
 // Outputs
 output name string = azCosmosDb.name

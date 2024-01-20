@@ -49,7 +49,9 @@ jobs:
       - name: Create zip and prepare for deployment
         run: |
           dotnet publish --configuration Release --output ./output --self-contained
-          zip -r ./deploy.zip ./output
+          cd ./output
+          zip -r ./deploy.zip ./
+          cd ..
 
       - name: Configure CORS
         run: |
