@@ -27,7 +27,7 @@ resource azCosmosDb 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
 // Create links-db database
 resource azCosmosDbDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-11-15' = {
   parent: azCosmosDb
-  name: 'database'
+  name: 'links-db'
   location: location
   properties: {
     resource: {
@@ -39,7 +39,7 @@ resource azCosmosDbDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@
 // Create links container
 resource azCosmosDbContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-11-15' = {
   parent: azCosmosDbDatabase
-  name: 'container'
+  name: 'links'
   location: location
   properties: {
     resource: {
