@@ -10,7 +10,7 @@ open System
 module GetLinkTrigger =
     [<FunctionName("GetLinkTrigger")>]
     let Run
-        ([<HttpTrigger(AuthorizationLevel.Function, "get", Route = "{shortUrl}")>] req: HttpRequest)
+        ([<HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "{shortUrl}")>] req: HttpRequest)
         ([<CosmosDB(containerName = "links", databaseName = "links-db", Connection = "CosmosConnectionString", Id = "{shortUrl}", PartitionKey = "{shortUrl}")>] link: Link) =            
             try RedirectResult(link.DestinationUrl) :> IActionResult
             with | _ -> NotFoundResult() :> IActionResult
