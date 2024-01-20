@@ -10,12 +10,15 @@ open Microsoft.Azure.WebJobs.Extensions.Http
 module PostLinkTrigger =
     [<FunctionName("PostLinkTrigger")>]
     let Run
-        ([<HttpTrigger(AuthorizationLevel.Function, "post", Route = "/")>] dto: LinkDto)
-        ([<CosmosDB(Connection = "CosmosConnectionString", ContainerName = "links", DatabaseName = "links-db")>] db: Link outref) =
+        ([<HttpTrigger(AuthorizationLevel.Function, "put", Route = "{shortUrl}")>] destinationUrl: string)
+        ([<CosmosDB(containerName = "links", databaseName = "links-db", Connection = "CosmosConnectionString")>] db: Link outref)
+        (shortUrl: string) =
+            let dto = new LinkDto(shortUrl, destinationUrl)
+            
             match LinkMapper.ToDomain(dto) with
             | Ok link ->
                 db <- link
-                CreatedResult($"/{link.ShortUrl}", LinkMapper.FromDomain(link)) :> IActionResult
+                OkObjectResult(LinkMapper.FromDomain(link)) :> IActionResult
             | Error errors ->
                 BadRequestObjectResult(errors) :> IActionResult
                 

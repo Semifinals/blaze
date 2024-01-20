@@ -1,0 +1,7 @@
+@shortUrl = test
+@destinationUrl = https://example.com
+
+PUT http://localhost:7071/{{shortUrl}}
+Content-Type: text/plain
+
+{{destinationUrl}}

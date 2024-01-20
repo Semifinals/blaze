@@ -18,8 +18,8 @@
     <None Include="triggers\DeleteLinkTrigger.http" />
     <Compile Include="Triggers\GetLinkTrigger.fs" />
     <None Include="triggers\GetLinkTrigger.http" />
-    <Compile Include="Triggers\PostLinkTrigger.fs" />
-    <None Include="triggers\PostLinkTrigger.http" />
+    <Compile Include="Triggers\PutLinkTrigger.fs" />
+    <None Include="triggers\PutLinkTrigger.http" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.1" />

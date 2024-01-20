@@ -8,3 +8,7 @@ let ShorterThan (nameof: string) (limit: int) =
 
 let LongerThan (nameof: string) (limit: int) =
     Error [ $"The '{nameof}' field cannot be longer than {limit} characters" ]
+
+let Uri (nameof: string) =
+    Error [ $"The '{nameof}' field must be a valid uri" ]
+    
