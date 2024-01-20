@@ -1,10 +1,10 @@
 ﻿namespace Blaze.Triggers
 
-open Microsoft.Azure.WebJobs
-open Microsoft.AspNetCore.Mvc
 open Microsoft.AspNetCore.Http
-open Microsoft.Azure.WebJobs.Extensions.Http
+open Microsoft.AspNetCore.Mvc
 open Microsoft.Azure.Cosmos
+open Microsoft.Azure.WebJobs
+open Microsoft.Azure.WebJobs.Extensions.Http
 
 module DeleteLinkTrigger =
     [<FunctionName("DeleteLinkTrigger")>]
@@ -12,13 +12,20 @@ module DeleteLinkTrigger =
         ([<HttpTrigger(AuthorizationLevel.Function, "delete", Route = "{shortUrl}")>] req: HttpRequest)
         ([<CosmosDB(Connection = "CosmosConnectionString")>] cosmosClient: CosmosClient)
         (shortUrl: string) =
-            cosmosClient
-                .GetContainer("links-db", "links")
-                .DeleteItemAsync(shortUrl, PartitionKey(shortUrl))
-                    |> Async.AwaitTask
-                    |> Async.RunSynchronously
-                    |> ignore
-                
-            NoContentResult() :> IActionResult
-            // return 404 if already deleted?
+            let res =
+                try
+                    cosmosClient
+                        .GetContainer("links-db", "links")
+                        .DeleteItemAsync(shortUrl, PartitionKey(shortUrl))
+                            |> Async.AwaitTask
+                            |> Async.RunSynchronously
+                            |> ignore
+                    Ok()
+                with
+                | _ -> Error()
+
+            match res with
+            | Ok _ -> NoContentResult() :> IActionResult
+            | Error _ -> NotFoundResult() :> IActionResult
+                                
             
