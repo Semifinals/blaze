@@ -11,7 +11,8 @@ module DeleteLinkTrigger =
     let Run
         ([<HttpTrigger(AuthorizationLevel.Function, "delete", Route = "{shortUrl}")>] req: HttpRequest)
         ([<CosmosDB(Connection = "CosmosConnectionString")>] cosmosClient: CosmosClient)
-        (shortUrl: string) =
+        (shortUrl: string)
+        : IActionResult =
             let res =
                 try
                     cosmosClient
@@ -25,7 +26,7 @@ module DeleteLinkTrigger =
                 | _ -> Error()
 
             match res with
-            | Ok _ -> NoContentResult() :> IActionResult
-            | Error _ -> NotFoundResult() :> IActionResult
+            | Ok _ -> NoContentResult()
+            | Error _ -> NotFoundResult()
                                 
             

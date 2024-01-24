@@ -1,7 +1,6 @@
 ﻿namespace Blaze.Triggers
 
 open Blaze.DTOs
-open Blaze.Mappers
 open Blaze.Types
 open Microsoft.AspNetCore.Http
 open Microsoft.AspNetCore.Mvc
@@ -14,17 +13,18 @@ module GetAllLinksTrigger =
     [<FunctionName("GetAllLinksTrigger")>]
     let Run
         ([<HttpTrigger(AuthorizationLevel.Function, "get", Route = "/")>] req: HttpRequest)
-        ([<CosmosDB(Connection = "CosmosConnectionString")>] cosmosClient: CosmosClient) =
+        ([<CosmosDB(Connection = "CosmosConnectionString")>] cosmosClient: CosmosClient)
+        : IActionResult =
             // Get pagination from the query string
             let parsed = req.GetQueryParameterDictionary()
             
             let pageSize =
                 try Some(parsed["pageSize"] |> int)
-                with | :? KeyNotFoundException as ex -> None
+                with | :? KeyNotFoundException as _ -> None
                 
             let pageCount =
                 try Some(parsed["pageCount"] |> int)
-                with | :? KeyNotFoundException as ex -> None
+                with | :? KeyNotFoundException as _ -> None
             
             let page = new Pagination(pageSize, pageCount)
             
@@ -46,9 +46,9 @@ module GetAllLinksTrigger =
                     links <- links @ (batch.Resource
                         :?> Link array
                         |> Array.toList
-                        |> List.map LinkMapper.FromDomain)
+                        |> List.map(fun link -> new LinkDto(link.ShortUrl, link.DestinationUrl)))
             } |> Async.RunSynchronously
 
             // Return requested links
-            OkObjectResult(links) :> IActionResult
+            OkObjectResult(links)
             

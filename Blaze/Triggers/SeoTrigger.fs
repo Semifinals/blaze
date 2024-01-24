@@ -7,6 +7,8 @@ open Microsoft.Azure.WebJobs.Extensions.Http
 
 module SeoTrigger =
     [<FunctionName("SeoTrigger")>]
-    let Run ([<HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "robots.txt")>] req: HttpRequest) =
-        OkObjectResult("User-agent: *\nDisallow: /")
+    let Run
+        ([<HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "robots.txt")>] req: HttpRequest)
+        : IActionResult =
+            OkObjectResult("User-agent: *\nDisallow: /")
         

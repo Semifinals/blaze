@@ -11,7 +11,8 @@ module GetLinkTrigger =
     [<FunctionName("GetLinkTrigger")>]
     let Run
         ([<HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "{shortUrl:regex(^(?!robots.txt$).*)}")>] req: HttpRequest)
-        ([<CosmosDB(containerName = "links", databaseName = "links-db", Connection = "CosmosConnectionString", Id = "{shortUrl}", PartitionKey = "{shortUrl}")>] link: Link) =            
-            try RedirectResult(link.DestinationUrl) :> IActionResult
-            with | _ -> NotFoundResult() :> IActionResult
+        ([<CosmosDB(containerName = "links", databaseName = "links-db", Connection = "CosmosConnectionString", Id = "{shortUrl}", PartitionKey = "{shortUrl}")>] link: Link)
+        : IActionResult =            
+            try RedirectResult(link.DestinationUrl)
+            with | _ -> NotFoundResult()
             
