@@ -21,9 +21,11 @@
     <None Include="triggers\GetLinkTrigger.http" />
     <Compile Include="Triggers\PutLinkTrigger.fs" />
     <None Include="triggers\PutLinkTrigger.http" />
+    <Compile Include="Startup.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.1" />
+    <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.CosmosDB" Version="4.4.2" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.2.0" />
     <PackageReference Include="Semifinals.Apim" Version="0.0.1" />

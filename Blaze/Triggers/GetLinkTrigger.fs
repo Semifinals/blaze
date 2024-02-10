@@ -16,7 +16,7 @@ module GetLinkTrigger =
     [<Response(HttpStatusCode.Redirect, Summary = "Redirect to destination", Description = "Indicates the request was successful and redirects to the intended destination")>]
     [<Response(HttpStatusCode.NotFound, Summary = "Short URL not found", Description = "Occurs when no destination URL has been set for the given short URL")>]
     let Run
-        ([<HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "{shortUrl:regex(^(?!robots.txt$).*)}")>] req: HttpRequest)
+        ([<HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "{shortUrl:regex(^(?!robots.txt$)(?!swagger\..+$).*)}")>] req: HttpRequest)
         ([<CosmosDB(containerName = "links", databaseName = "links-db", Connection = "CosmosConnectionString", Id = "{shortUrl}", PartitionKey = "{shortUrl}")>] link: Link)
         : IActionResult =            
             try RedirectResult(link.DestinationUrl)
