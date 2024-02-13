@@ -21,6 +21,7 @@
     <None Include="triggers\GetLinkTrigger.http" />
     <Compile Include="Triggers\PutLinkTrigger.fs" />
     <None Include="triggers\PutLinkTrigger.http" />
+    <Compile Include="Triggers\WarmupTrigger.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.37.1" />
